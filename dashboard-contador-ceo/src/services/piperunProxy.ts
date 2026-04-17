@@ -16,7 +16,10 @@ export async function callPiperunProxy<T>(request: ProxyRequest): Promise<Piperu
     throw new Error(`Erro ao chamar proxy PipeRun: ${error.message}`)
   }
 
-  return data as PiperunAPIResponse<T>
+  // Edge Function wraps in { success, data: <piperun_response>, status }
+  // PipeRun response itself has { data: [...], meta: {...} }
+  const piperunResponse = data?.data || data
+  return piperunResponse as PiperunAPIResponse<T>
 }
 
 export async function triggerSync(): Promise<{ success: boolean; error?: string }> {
@@ -42,5 +45,18 @@ export async function testPiperunConnection(token: string): Promise<{
     return { success: false, error: error.message }
   }
 
-  return { success: true, data }
+  // Edge Function wraps: { success, data: <piperun /me response>, status }
+  const meData = data?.data?.data || data?.data
+  if (!meData) {
+    return { success: false, error: 'Resposta vazia da API PipeRun' }
+  }
+
+  return {
+    success: true,
+    data: {
+      account_name: meData.account_name || meData.company?.name || 'N/A',
+      user_email: meData.email || meData.user_email || 'N/A',
+      user_acl: meData.acl || meData.user_acl || 'N/A',
+    },
+  }
 }
