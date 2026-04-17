@@ -13,7 +13,7 @@ export function usePiperunStages() {
     try {
       const res = await callPiperunProxy<PiperunStageAPI>({
         endpoint: '/stages',
-        params: { pipeline_id: String(pipelineId) },
+        params: { pipeline_id: String(pipelineId), show: '200' },
         ...(token ? { token } : {}),
       })
       const sorted = (res.data || []).sort((a, b) => (a.position ?? 0) - (b.position ?? 0))

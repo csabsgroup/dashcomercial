@@ -13,7 +13,7 @@ export function useCustomFields() {
     try {
       const res = await callPiperunProxy<PiperunCustomFieldDefinition>({
         endpoint: '/customFields',
-        params: {},
+        params: { show: '200' },
         ...(token ? { token } : {}),
       })
 

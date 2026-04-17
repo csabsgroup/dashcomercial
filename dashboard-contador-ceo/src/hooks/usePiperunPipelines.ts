@@ -13,7 +13,7 @@ export function usePiperunPipelines() {
     try {
       const res = await callPiperunProxy<PiperunPipeline>({
         endpoint: '/pipelines',
-        params: {},
+        params: { show: '200' },
         ...(token ? { token } : {}),
       })
       setPipelines(res.data || [])
