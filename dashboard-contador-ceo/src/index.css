@@ -1,0 +1,297 @@
+@import "tailwindcss";
+
+/* =============================================
+   Design Tokens — Dashboard Contador CEO
+   Paleta: #DF2531, #FFFFFF, #000000
+   ============================================= */
+
+:root[data-theme="dark"] {
+  --color-bg: #0a0a0a;
+  --color-surface: #111111;
+  --color-surface-2: #1a1a1a;
+  --color-surface-3: #222222;
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-text: #f5f5f5;
+  --color-text-muted: #8a8a8a;
+  --color-text-faint: #444444;
+
+  --color-primary: #DF2531;
+  --color-primary-hover: #c91f2a;
+  --color-primary-45: rgba(223, 37, 49, 0.45);
+  --color-primary-65: rgba(223, 37, 49, 0.65);
+  --color-primary-glow: rgba(223, 37, 49, 0.3);
+
+  --color-gold: #f5c518;
+  --color-gold-glow: rgba(245, 197, 24, 0.3);
+  --color-success: #00c853;
+  --color-warning: #ff9800;
+  --color-danger: #f44336;
+
+  --color-rank-1: #f5c518;
+  --color-rank-2: #c0c0c0;
+  --color-rank-3: #cd7f32;
+
+  --color-sync-ok: #00c853;
+  --color-sync-running: #ff9800;
+  --color-sync-error: #f44336;
+}
+
+:root[data-theme="light"] {
+  --color-bg: #f8f8f8;
+  --color-surface: #ffffff;
+  --color-surface-2: #f4f4f4;
+  --color-surface-3: #eaeaea;
+  --color-border: rgba(0, 0, 0, 0.07);
+  --color-text: #111111;
+  --color-text-muted: #5c5c5c;
+  --color-text-faint: #aaaaaa;
+
+  --color-primary: #DF2531;
+  --color-primary-hover: #c91f2a;
+  --color-primary-45: rgba(223, 37, 49, 0.45);
+  --color-primary-65: rgba(223, 37, 49, 0.65);
+  --color-primary-glow: rgba(223, 37, 49, 0.2);
+
+  --color-gold: #DF2531;
+  --color-gold-glow: rgba(223, 37, 49, 0.25);
+  --color-success: #00a844;
+  --color-warning: #e68900;
+  --color-danger: #d32f2f;
+
+  --color-rank-1: #DF2531;
+  --color-rank-2: #909090;
+  --color-rank-3: #b56e28;
+
+  --color-sync-ok: #00a844;
+  --color-sync-running: #e68900;
+  --color-sync-error: #d32f2f;
+}
+
+/* =============================================
+   Tailwind v4 Theme Extension
+   ============================================= */
+
+@theme {
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-surface-2: var(--color-surface-2);
+  --color-surface-3: var(--color-surface-3);
+  --color-border: var(--color-border);
+  --color-text-primary: var(--color-text);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-faint: var(--color-text-faint);
+
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-45: var(--color-primary-45);
+  --color-primary-65: var(--color-primary-65);
+  --color-primary-glow: var(--color-primary-glow);
+
+  --color-gold: var(--color-gold);
+  --color-gold-glow: var(--color-gold-glow);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-danger: var(--color-danger);
+  --color-rank-1: var(--color-rank-1);
+  --color-rank-2: var(--color-rank-2);
+  --color-rank-3: var(--color-rank-3);
+  --color-sync-ok: var(--color-sync-ok);
+  --color-sync-running: var(--color-sync-running);
+  --color-sync-error: var(--color-sync-error);
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+/* =============================================
+   Base Styles
+   ============================================= */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-surface-3) transparent;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =============================================
+   Utility Classes
+   ============================================= */
+
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Glow Effects */
+.glow-gold {
+  box-shadow: 0 0 20px var(--color-gold-glow), 0 0 40px var(--color-gold-glow);
+}
+
+.glow-gold-pulse {
+  animation: glow-gold-pulse 2s ease-in-out infinite;
+}
+
+.glow-red {
+  box-shadow: 0 0 20px var(--color-primary-glow), 0 0 40px rgba(223, 37, 49, 0.12);
+}
+
+.glow-red-pulse {
+  animation: glow-red-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-gold-pulse {
+  0%, 100% { box-shadow: 0 0 20px var(--color-gold-glow); }
+  50% { box-shadow: 0 0 40px var(--color-gold-glow), 0 0 60px var(--color-gold-glow); }
+}
+
+@keyframes glow-red-pulse {
+  0%, 100% { box-shadow: 0 0 20px var(--color-primary-glow); }
+  50% { box-shadow: 0 0 40px var(--color-primary-glow), 0 0 60px rgba(223, 37, 49, 0.18); }
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.animate-live-pulse {
+  animation: live-pulse 1.5s ease-in-out infinite;
+}
+
+/* Gradient backgrounds */
+.bg-brand-gradient {
+  background: linear-gradient(135deg, #DF2531 0%, #b91c26 100%);
+}
+
+.bg-brand-gradient-subtle {
+  background: linear-gradient(135deg, rgba(223, 37, 49, 0.08) 0%, rgba(185, 28, 38, 0.03) 100%);
+}
+
+/* Podium Shield Effects */
+.shield-1st {
+  background: linear-gradient(180deg, rgba(245, 197, 24, 0.15) 0%, rgba(245, 197, 24, 0.03) 100%);
+  border: 2px solid rgba(245, 197, 24, 0.4);
+  border-radius: 1.5rem;
+  position: relative;
+}
+.shield-1st::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 10%;
+  right: 10%;
+  height: 16px;
+  background: radial-gradient(ellipse, var(--color-gold-glow) 0%, transparent 70%);
+  filter: blur(6px);
+}
+
+.shield-2nd {
+  background: linear-gradient(180deg, rgba(192, 192, 192, 0.12) 0%, rgba(192, 192, 192, 0.03) 100%);
+  border: 2px solid rgba(192, 192, 192, 0.3);
+  border-radius: 1.5rem;
+  position: relative;
+}
+.shield-2nd::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 15%;
+  right: 15%;
+  height: 12px;
+  background: radial-gradient(ellipse, rgba(192, 192, 192, 0.3) 0%, transparent 70%);
+  filter: blur(4px);
+}
+
+.shield-3rd {
+  background: linear-gradient(180deg, rgba(205, 127, 50, 0.12) 0%, rgba(205, 127, 50, 0.03) 100%);
+  border: 2px solid rgba(205, 127, 50, 0.3);
+  border-radius: 1.5rem;
+  position: relative;
+}
+.shield-3rd::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 15%;
+  right: 15%;
+  height: 12px;
+  background: radial-gradient(ellipse, rgba(205, 127, 50, 0.3) 0%, transparent 70%);
+  filter: blur(4px);
+}
+
+/* Neon ring effect for 1st place podium */
+@keyframes neon-ring {
+  0%, 100% { box-shadow: 0 0 20px var(--color-gold-glow), inset 0 0 20px var(--color-gold-glow); }
+  50% { box-shadow: 0 0 40px var(--color-gold-glow), 0 0 80px var(--color-gold-glow), inset 0 0 30px var(--color-gold-glow); }
+}
+.neon-ring-gold {
+  animation: neon-ring 2.5s ease-in-out infinite;
+}
+
+/* Shimmer animation for progress bars */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.progress-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+/* Geometric grid background */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size:
+    60px 60px,
+    60px 60px,
+    60px 60px;
+  background-position: 0 0, 0 0, 30px 30px;
+  animation: grid-drift 80s linear infinite;
+}
+
+.bg-grid-pattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 60% at 50% 50%,
+    transparent 0%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  pointer-events: none;
+}
+
+@keyframes grid-drift {
+  0%   { background-position: 0 0, 0 0, 30px 30px; }
+  100% { background-position: 60px 60px, 60px 60px, 90px 90px; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .glow-gold-pulse,
+  .glow-red-pulse,
+  .animate-live-pulse,
+  .progress-shimmer,
+  .bg-grid-pattern {
+    animation: none;
+  }
+}
