@@ -274,11 +274,21 @@ export default function PiperunIntegration() {
   const updateConfig = useCallback(async (updates: Partial<PiperunConfig>) => {
     if (!config) {
       // First time — insert
-      const { data } = await supabase.from('piperun_config').insert({ ...updates }).select().single()
+      const { data, error } = await supabase.from('piperun_config').insert({ ...updates }).select().single()
+      if (error) {
+        console.error('Erro ao inserir config:', error)
+        alert(`Erro ao salvar: ${error.message}`)
+        return null
+      }
       if (data) setConfig(data as PiperunConfig)
       return data
     }
-    const { data } = await supabase.from('piperun_config').update(updates).eq('id', config.id).select().single()
+    const { data, error } = await supabase.from('piperun_config').update(updates).eq('id', config.id).select().single()
+    if (error) {
+      console.error('Erro ao atualizar config:', error)
+      alert(`Erro ao salvar: ${error.message}`)
+      return null
+    }
     if (data) setConfig(data as PiperunConfig)
     return data
   }, [config])
