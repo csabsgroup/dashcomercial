@@ -135,6 +135,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user, fetchProfile])
 
   const signIn = async (email: string, password: string) => {
+    if (MOCK_ENABLED) {
+      return { error: null }
+    }
+
     if (!validateDomain(email)) {
       return { error: `Apenas e-mails do domínio @${ALLOWED_DOMAIN} são permitidos.` }
     }
@@ -144,6 +148,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   const signUp = async (email: string, password: string, name: string) => {
+    if (MOCK_ENABLED) {
+      return { error: null }
+    }
+
     if (!validateDomain(email)) {
       return { error: `Apenas e-mails do domínio @${ALLOWED_DOMAIN} são permitidos.` }
     }
