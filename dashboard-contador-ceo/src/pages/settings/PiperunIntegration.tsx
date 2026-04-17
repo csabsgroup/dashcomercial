@@ -32,6 +32,11 @@ function Section({
 }) {
   const [open, setOpen] = useState(defaultOpen)
 
+  // Re-open when defaultOpen changes to true (e.g. after token save)
+  useEffect(() => {
+    if (defaultOpen) setOpen(true)
+  }, [defaultOpen])
+
   return (
     <div className="bg-surface rounded-2xl border border-border overflow-hidden">
       <button
